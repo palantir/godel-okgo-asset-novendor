@@ -1,0 +1,4 @@
+packages:
+  novendor:
+    main: github.com/palantir/go-novendor
+    omit-vendor-dirs: true
