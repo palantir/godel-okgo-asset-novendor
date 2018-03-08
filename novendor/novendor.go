@@ -69,6 +69,9 @@ func (c *novendorCheck) Priority() (okgo.CheckerPriority, error) {
 
 func (c *novendorCheck) Check(pkgPaths []string, projectDir string, stdout io.Writer) {
 	var args []string
+	if projectDir != "" {
+		args = append(args, "--project-dir", projectDir)
+	}
 	for _, regexp := range c.pkgRegexps {
 		args = append(args, "--pkg-regexp", regexp)
 	}
