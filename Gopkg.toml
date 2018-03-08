@@ -23,6 +23,10 @@
 required = ["github.com/palantir/go-novendor"]
 
 [[constraint]]
+  name = "github.com/palantir/go-novendor"
+  version = "1.0.0"
+
+[[constraint]]
   name = "github.com/go-yaml/yaml"
   version = "2.1.1"
 
