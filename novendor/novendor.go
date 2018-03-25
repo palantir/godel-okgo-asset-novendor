@@ -18,10 +18,8 @@ import (
 	"io"
 	"path"
 
-	"github.com/go-yaml/yaml"
 	"github.com/palantir/okgo/checker"
 	"github.com/palantir/okgo/okgo"
-	"github.com/pkg/errors"
 )
 
 const (
@@ -29,56 +27,32 @@ const (
 	Priority okgo.CheckerPriority = 0
 )
 
-func Creator() checker.Creator {
-	return checker.NewCreator(
-		TypeName,
-		Priority,
-		func(cfgYML []byte) (okgo.Checker, error) {
-			var cfg novendorCheckCfg
-			if err := yaml.Unmarshal(cfgYML, &cfg); err != nil {
-				return nil, errors.Wrapf(err, "failed to unmarshal configuration YAML %q", string(cfgYML))
-			}
-			return &novendorCheck{
-				pkgRegexps:                cfg.PkgRegexps,
-				includeVendorInImportPath: cfg.IncludeVendorInImportPath,
-				ignorePkgs:                cfg.IgnorePkgs,
-			}, nil
-		},
-	)
+type Checker struct {
+	PkgRegexps                []string
+	IncludeVendorInImportPath bool
+	IgnorePkgs                []string
 }
 
-type novendorCheck struct {
-	pkgRegexps                []string
-	includeVendorInImportPath bool
-	ignorePkgs                []string
-}
-
-type novendorCheckCfg struct {
-	PkgRegexps                []string `yaml:"pkg-regexps"`
-	IncludeVendorInImportPath bool     `yaml:"include-vendor-in-import-path"`
-	IgnorePkgs                []string `yaml:"ignore-pkgs"`
-}
-
-func (c *novendorCheck) Type() (okgo.CheckerType, error) {
+func (c *Checker) Type() (okgo.CheckerType, error) {
 	return TypeName, nil
 }
 
-func (c *novendorCheck) Priority() (okgo.CheckerPriority, error) {
+func (c *Checker) Priority() (okgo.CheckerPriority, error) {
 	return Priority, nil
 }
 
-func (c *novendorCheck) Check(pkgPaths []string, projectDir string, stdout io.Writer) {
+func (c *Checker) Check(pkgPaths []string, projectDir string, stdout io.Writer) {
 	var args []string
 	if projectDir != "" {
 		args = append(args, "--project-dir", projectDir)
 	}
-	for _, regexp := range c.pkgRegexps {
+	for _, regexp := range c.PkgRegexps {
 		args = append(args, "--pkg-regexp", regexp)
 	}
-	if c.includeVendorInImportPath {
+	if c.IncludeVendorInImportPath {
 		args = append(args, "--full-import-path")
 	}
-	for _, pkg := range c.ignorePkgs {
+	for _, pkg := range c.IgnorePkgs {
 		args = append(args, "--ignore-pkg", path.Join(projectDir, pkg))
 	}
 	cmd, wd := checker.AmalgomatedCheckCmd(string(TypeName), append(args, pkgPaths...), stdout)
@@ -90,6 +64,6 @@ func (c *novendorCheck) Check(pkgPaths []string, projectDir string, stdout io.Wr
 	}, stdout)
 }
 
-func (c *novendorCheck) RunCheckCmd(args []string, stdout io.Writer) {
+func (c *Checker) RunCheckCmd(args []string, stdout io.Writer) {
 	checker.AmalgomatedRunRawCheck(string(TypeName), args, stdout)
 }

@@ -22,7 +22,8 @@ import (
 	"github.com/palantir/pkg/cobracli"
 
 	"github.com/palantir/godel-okgo-asset-novendor/generated_src"
-	"github.com/palantir/godel-okgo-asset-novendor/novendor"
+	"github.com/palantir/godel-okgo-asset-novendor/novendor/config"
+	"github.com/palantir/godel-okgo-asset-novendor/novendor/creator"
 )
 
 func main() {
@@ -32,6 +33,6 @@ func main() {
 func checkMain(osArgs []string) int {
 	os.Args = osArgs
 	var debugFlagVal bool
-	rootCmd := checker.AssetRootCmd(novendor.Creator(), "run novendor check")
+	rootCmd := checker.AssetRootCmd(creator.Novendor(), config.UpgradeConfig, "run novendor check")
 	return cobracli.ExecuteWithDefaultParamsWithVersion(rootCmd, &debugFlagVal, "")
 }
