@@ -70,8 +70,8 @@
 [[projects]]
   name = "github.com/palantir/go-novendor"
   packages = [".","cmd","novendor"]
-  revision = "4261ba48d1aa28d2ecb5690382a5ffb8efa01e38"
-  version = "v1.0.0"
+  revision = "281c58f3c185bdd1223d219ab36abf035e4a148e"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
