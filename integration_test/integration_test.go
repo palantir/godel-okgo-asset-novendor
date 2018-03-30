@@ -27,17 +27,17 @@ import (
 const (
 	okgoPluginLocator  = "com.palantir.okgo:check-plugin:1.0.0-rc4"
 	okgoPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
+)
 
-	godelYML = `exclude:
+func TestCheck(t *testing.T) {
+	const godelYML = `exclude:
   names:
     - "\\..+"
     - "vendor"
   paths:
     - "godel"
 `
-)
 
-func TestCheck(t *testing.T) {
 	assetPath, err := products.Bin("novendor-asset")
 	require.NoError(t, err)
 
@@ -118,9 +118,7 @@ func TestUpgradeConfig(t *testing.T) {
 			{
 				Name: `legacy configuration with empty "args" field is updated`,
 				ConfigFiles: map[string]string{
-					"godel/config/godel.yml": godelYML,
-					"godel/config/check-plugin.yml": `
-legacy-config: true
+					"godel/config/check.yml": `
 checks:
   novendor:
     filters:
@@ -129,6 +127,7 @@ checks:
         value: ".*.pb.go"
 `,
 				},
+				Legacy: true,
 				WantOutput: `Upgraded configuration for check-plugin.yml
 `,
 				WantFiles: map[string]string{
@@ -154,9 +153,7 @@ exclude:
 			{
 				Name: `legacy configuration with "ignore" args is upgraded`,
 				ConfigFiles: map[string]string{
-					"godel/config/godel.yml": godelYML,
-					"godel/config/check-plugin.yml": `
-legacy-config: true
+					"godel/config/check.yml": `
 checks:
   novendor:
     args:
@@ -164,6 +161,7 @@ checks:
       - "./vendor/github.com/palantir/go-novendor"
 `,
 				},
+				Legacy: true,
 				WantOutput: `Upgraded configuration for check-plugin.yml
 `,
 				WantFiles: map[string]string{
@@ -190,22 +188,20 @@ exclude:
 			{
 				Name: `legacy configuration with args other than "ignore" fails`,
 				ConfigFiles: map[string]string{
-					"godel/config/godel.yml": godelYML,
-					"godel/config/check-plugin.yml": `
-legacy-config: true
+					"godel/config/check.yml": `
 checks:
   novendor:
     args:
       - "-help"
 `,
 				},
+				Legacy:    true,
 				WantError: true,
 				WantOutput: `Failed to upgrade configuration:
-	godel/config/check-plugin.yml: failed to upgrade check "novendor" legacy configuration: failed to upgrade asset configuration: novendor-asset only supports legacy configuration if the first element in "args" is "--ignore"
+	godel/config/check-plugin.yml: failed to upgrade configuration: failed to upgrade check "novendor" legacy configuration: failed to upgrade asset configuration: novendor-asset only supports legacy configuration if the first element in "args" is "--ignore"
 `,
 				WantFiles: map[string]string{
-					"godel/config/check-plugin.yml": `
-legacy-config: true
+					"godel/config/check.yml": `
 checks:
   novendor:
     args:
@@ -216,7 +212,6 @@ checks:
 			{
 				Name: `valid v0 config works`,
 				ConfigFiles: map[string]string{
-					"godel/config/godel.yml": godelYML,
 					"godel/config/check-plugin.yml": `
 checks:
   novendor:
