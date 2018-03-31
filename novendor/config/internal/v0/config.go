@@ -20,9 +20,9 @@ import (
 )
 
 type Config struct {
-	PkgRegexps                []string `yaml:"pkg-regexps"`
-	IncludeVendorInImportPath bool     `yaml:"include-vendor-in-import-path"`
-	IgnorePkgs                []string `yaml:"ignore-pkgs"`
+	PkgRegexps                []string `yaml:"pkg-regexps,omitempty"`
+	IncludeVendorInImportPath bool     `yaml:"include-vendor-in-import-path,omitempty"`
+	IgnorePkgs                []string `yaml:"ignore-pkgs,omitempty"`
 }
 
 func UpgradeConfig(cfgBytes []byte) ([]byte, error) {
