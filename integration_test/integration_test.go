@@ -25,7 +25,7 @@ import (
 )
 
 const (
-	okgoPluginLocator  = "com.palantir.okgo:check-plugin:1.0.0-rc6"
+	okgoPluginLocator  = "com.palantir.okgo:check-plugin:1.0.0-rc7"
 	okgoPluginResolver = "https://palantir.bintray.com/releases/{{GroupPath}}/{{Product}}/{{Version}}/{{Product}}-{{Version}}-{{OS}}-{{Arch}}.tgz"
 )
 
@@ -97,6 +97,32 @@ Check(s) produced output: [novendor]
 github.com/org/repo
 Finished novendor
 Check(s) produced output: [novendor]
+`,
+			},
+			{
+				Name: "check filters work for novendor output",
+				Specs: []gofiles.GoFileSpec{
+					{
+						RelPath: "foo.go",
+						Src:     `package foo`,
+					},
+					{
+						RelPath: "vendor/github.com/org/repo/bar/bar.go",
+						Src:     `package bar`,
+					},
+				},
+				ConfigFiles: map[string]string{
+					"godel/config/godel.yml": godelYML,
+					"godel/config/check-plugin.yml": `
+checks:
+  novendor:
+    filters:
+    - value: github.com/org/repo
+`,
+				},
+				WantError: false,
+				WantOutput: `Running novendor...
+Finished novendor
 `,
 			},
 		},
