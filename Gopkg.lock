@@ -121,14 +121,14 @@
   revision = "6ef6fc2811e260af0641aae25a45881217b3cf3d"
 
 [[projects]]
-  branch = "master"
   name = "github.com/palantir/okgo"
   packages = [
     "checker",
     "okgo",
     "okgotester"
   ]
-  revision = "e9fd63d0970b44dfc1c6edeb99dd7760ef76b8c1"
+  revision = "a8335d2c237849cd7d3af43cb0d11e0f5e7e3329"
+  version = "v1.0.0-rc7"
 
 [[projects]]
   branch = "master"
