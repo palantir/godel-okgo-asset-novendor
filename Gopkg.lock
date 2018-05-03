@@ -127,8 +127,8 @@
     "okgo",
     "okgotester"
   ]
-  revision = "a8335d2c237849cd7d3af43cb0d11e0f5e7e3329"
-  version = "v1.0.0-rc7"
+  revision = "32725b197ce491268c43f7036aa702bb99dac21c"
+  version = "v1.0.0"
 
 [[projects]]
   branch = "master"
@@ -212,6 +212,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0d4555412c6d324179752b06a6e6896446ca19d104edd5eb22d28fe17c5297c2"
+  inputs-digest = "947c214d83a03d29ac7c91ab979848489806e428bec700ed147b187a6394a236"
   solver-name = "gps-cdcl"
   solver-version = 1
