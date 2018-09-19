@@ -17,9 +17,11 @@ package main
 import (
 	"os"
 
+	"github.com/palantir/pkg/cobracli"
+
 	"github.com/palantir/go-novendor/cmd"
 )
 
 func main() {
-	os.Exit(cmd.Execute())
+	os.Exit(cobracli.ExecuteWithDefaultParams(cmd.RootCmd))
 }

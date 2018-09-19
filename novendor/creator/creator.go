@@ -23,10 +23,6 @@ import (
 	"github.com/palantir/godel-okgo-asset-novendor/novendor/config"
 )
 
-func init() {
-	checker.SetGoBuildDefaultReleaseTags()
-}
-
 func Novendor() checker.Creator {
 	return checker.NewCreator(
 		novendor.TypeName,

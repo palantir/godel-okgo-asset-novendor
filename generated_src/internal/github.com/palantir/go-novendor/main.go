@@ -17,9 +17,11 @@ package amalgomated
 import (
 	"os"
 
+	"github.com/palantir/pkg/cobracli"
+
 	"github.com/palantir/godel-okgo-asset-novendor/generated_src/internal/github.com/palantir/go-novendor/cmd"
 )
 
 func AmalgomatedMain() {
-	os.Exit(cmd.Execute())
+	os.Exit(cobracli.ExecuteWithDefaultParams(cmd.RootCmd))
 }
