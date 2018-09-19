@@ -85,8 +85,8 @@
     "cmd",
     "novendor",
   ]
-  revision = "269e86aa2991b5b70db81d9495d8a5e0199c4823"
-  version = "v1.2.0"
+  revision = "b6e00e060ed72b25a02eda96ea2044bd3eb476dc"
+  version = "v1.3.0"
 
 [[projects]]
   branch = "master"
@@ -212,6 +212,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "840a23222b0ffd7f7b33e7263dee51e7e766ed4c6a4827f4cf2e881e4f73575f"
+  inputs-digest = "d550491172d82c5c1102305ae8e620c0e1ec863fd9a391b207ceff2dae1897f7"
   solver-name = "gps-cdcl"
   solver-version = 1
