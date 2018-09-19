@@ -24,15 +24,23 @@ required = ["github.com/palantir/go-novendor"]
 
 [[constraint]]
   name = "github.com/palantir/go-novendor"
-  version = "1.3.0"
+  version = "1.2.0"
 
 [[constraint]]
   name = "github.com/palantir/amalgomate"
   version = "1.3.0"
 
 [[constraint]]
+  branch = "master"
+  name = "github.com/palantir/godel"
+
+[[constraint]]
   name = "github.com/palantir/okgo"
-  version = "1.2.0"
+  version = "1.0.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/palantir/pkg"
 
 [[constraint]]
   name = "github.com/pkg/errors"
