@@ -85,8 +85,8 @@
     "cmd",
     "novendor",
   ]
-  revision = "b6e00e060ed72b25a02eda96ea2044bd3eb476dc"
-  version = "v1.3.0"
+  revision = "269e86aa2991b5b70db81d9495d8a5e0199c4823"
+  version = "v1.2.0"
 
 [[projects]]
   branch = "master"
@@ -119,22 +119,6 @@
     "pkg/versionedconfig",
   ]
   revision = "6ef6fc2811e260af0641aae25a45881217b3cf3d"
-
-[[projects]]
-  name = "github.com/palantir/godel-okgo-asset-novendor"
-  packages = [
-    "generated_src",
-    "generated_src/internal/github.com/palantir/go-novendor",
-    "generated_src/internal/github.com/palantir/go-novendor/cmd",
-    "generated_src/internal/github.com/palantir/go-novendor/novendor",
-    "novendor",
-    "novendor/config",
-    "novendor/config/internal/legacy",
-    "novendor/config/internal/v0",
-    "novendor/creator",
-  ]
-  revision = "08fe60a6b391e1085347488838012a30e0501c44"
-  version = "v1.1.0"
 
 [[projects]]
   name = "github.com/palantir/okgo"
@@ -228,6 +212,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c14c2cf668dda67f0a8872194f7dc59f48c394e1be5a8431bd269379e7aad374"
+  inputs-digest = "840a23222b0ffd7f7b33e7263dee51e7e766ed4c6a4827f4cf2e881e4f73575f"
   solver-name = "gps-cdcl"
   solver-version = 1
